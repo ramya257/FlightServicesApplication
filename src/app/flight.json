@@ -1,0 +1,41 @@
+[
+  {
+    "flightName":"Indigo",
+    "flightPrice":3629.24,
+    "flightStarting":"Chennai",
+    "flightDestination":"Bangalore",
+    "flightArrival":"3:20",
+    "flightDeparture":"18:40"
+    
+  },
+  
+  {
+    "flightName":"Air India",
+    "flightPrice":3899.24,
+    "flightStarting":"Delhi",
+    "flightDestination":"Tokyo",
+    "flightArrival":"1:20",
+    "flightDeparture":"16:40"
+    
+  },
+  
+  {
+    "flightName":"Emirates",
+    "flightPrice":36729.24,
+    "flightStarting":"Mumbai",
+    "flightDestination":"New York",
+    "flightArrival":"13:20",
+    "flightDeparture":"7:40"
+    
+  },
+  
+  {
+    "flightName":"Jet Aiways",
+    "flightPrice":3729.24,
+    "flightStarting":"Vizag",
+    "flightDestination":"Jaipur",
+    "flightArrival":"7:20",
+    "flightDeparture":"11:40"
+    
+  }
+]
