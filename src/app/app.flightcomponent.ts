@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FlightService } from "./FlightService";
 import { Flight } from "./Flight";
 import { FlightSearchPipe } from "./FlightSearch";
+import { NgForm } from "@angular/forms";
 
 
 @Component({
@@ -95,13 +96,23 @@ export class FlightComponent implements OnInit{
         
         
     }
-    addFlightData():void{
+    addFlightData(form:NgForm):void{
  
+       
         this.flightsList.push(new Flight(this.name,this.price,this.starting,this.destination,this.arrival,this.departure));
         console.log(this.flightsList);
         this.add=false;
         this.clearAdd();
+        
     }
+    
+    /*addFlightData():void{
+        
+        this.flightsList.push(new Flight(this.name,this.price,this.starting,this.destination,this.arrival,this.departure));
+        console.log(this.flightsList);
+        this.add=false;
+        this.clearAdd();
+    }*/
     
     clear():void{
         this.fName=null;

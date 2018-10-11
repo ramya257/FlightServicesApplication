@@ -32,7 +32,7 @@
 
 <tr *ngFor="let flight of flightsList|search:searchName:searchStarting:searchDestination|sort: {property: column, direction: direction}, let i=index">
 <td>{{flight.flightName}}</td>
-<td>{{flight.flightPrice| currency:'INR':true:'1.0-0'}}</td>
+<td>{{flight.flightPrice| currency:'INR':true}}</td>
 <td>{{flight.flightStarting}}</td>
 <td>{{flight.flightDestination}}</td>
 <td>{{flight.flightArrival}}</td>
@@ -78,29 +78,43 @@ Flight Departure:<input type="text" [(ngModel)]='fDeparture' name='fDeparture' a
 
 <br>
 <div *ngIf="add">
-<form>
+<form #flightForm=ngForm (submit)="addFlightData(flightForm)">
 
 <table>
 <caption>Add Flight</caption>
 <tr>
 <td>
-Flight Name:<input type="text" [(ngModel)]='name' name='name' autocomplete="off"/></td></tr>
+Flight Name:<input required type="text" [(ngModel)]='name' name='name' autocomplete="off" #namecontrol="ngModel"/></td>
+<span *ngIf="namecontrol.invalid && namecontrol.touched" > Name is required</span>
+</tr>
 <tr>
 <td>
-Flight Price:<input type="text" [(ngModel)]='price' name='price' autocomplete="off"/></td></tr>
+Flight Price:<input required type="number" [(ngModel)]='price' name='price'  autocomplete="off" #pricecontrol="ngModel"/></td>
+<span *ngIf="pricecontrol.invalid && pricecontrol.touched" > Price is required</span>
+</tr>
 <tr>
 <td>
-Flight Starting At:<input type="text" [(ngModel)]='starting' name='starting' autocomplete="off"/></td></tr>
+Flight Starting At:<input type="text" required [(ngModel)]='starting' name='starting' autocomplete="off" #startingcontrol="ngModel"/></td>
+<span *ngIf="startingcontrol.invalid && startingcontrol.touched" > Starting Place is required</span>
+</tr>
+
 <tr>
 <td>
-Flight Destination:<input type="text" [(ngModel)]='destination' name='destination' autocomplete="off"/></td></tr>
+Flight Destination:<input required type="text" [(ngModel)]='destination' name='destination' autocomplete="off" #destinationcontrol="ngModel"/></td>
+<span *ngIf="destinationcontrol.invalid && destinationcontrol.touched" > Destination is required</span>
+</tr>
+
 <tr>
 <td>
-Flight Arrival:<input type="text" [(ngModel)]='arrival' name='arrival' autocomplete="off"/></td></tr>
+Flight Arrival:<input required type="text" [(ngModel)]='arrival' name='arrival' autocomplete="off" #arrivalcontrol="ngModel"/></td>
+<span *ngIf="arrivalcontrol.invalid && arrivalcontrol.touched" > Arrival Time is required</span>
+</tr>
 <tr>
 <td>
-Flight Departure:<input type="text" [(ngModel)]='departure' name='departure' autocomplete="off"/></td></tr>
-<tr><td><button (click)="addFlightData()">Add Flight</button></td></tr>
+Flight Departure:<input required type="text" [(ngModel)]='departure' name='departure' autocomplete="off" #departurecontrol="ngModel"/></td>
+<span *ngIf="departurecontrol.invalid && departurecontrol.touched" > Departure Time is required</span></tr>
+<!-- <tr><td><button (click)="addFlightData()">Add Flight</button></td></tr> -->
+<tr><td><input type="submit" [disabled]="!flightForm.valid" value="Add"/></td></tr>
 </table>
 </form>
 </div>

@@ -61,12 +61,19 @@ var FlightComponent = (function () {
         this.add = true;
         this.update = false;
     };
-    FlightComponent.prototype.addFlightData = function () {
+    FlightComponent.prototype.addFlightData = function (form) {
         this.flightsList.push(new Flight_1.Flight(this.name, this.price, this.starting, this.destination, this.arrival, this.departure));
         console.log(this.flightsList);
         this.add = false;
         this.clearAdd();
     };
+    /*addFlightData():void{
+        
+        this.flightsList.push(new Flight(this.name,this.price,this.starting,this.destination,this.arrival,this.departure));
+        console.log(this.flightsList);
+        this.add=false;
+        this.clearAdd();
+    }*/
     FlightComponent.prototype.clear = function () {
         this.fName = null;
         this.fPrice = null;

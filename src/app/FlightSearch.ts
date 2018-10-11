@@ -14,11 +14,11 @@ export class FlightSearchPipe implements PipeTransform {
                    
                     return false;
                 }
-                else if (searchStarting && item.flightName.toLowerCase().indexOf(searchStarting.toLowerCase()) === -1){
+                else if (searchStarting && item.flightStarting.toLowerCase().indexOf(searchStarting.toLowerCase()) === -1){
                     
                     return false;
                 }
-                else if (searchDestination && item.flightName.toLowerCase().indexOf(searchDestination.toLowerCase()) === -1){
+                else if (searchDestination && item.flightDestination.toLowerCase().indexOf(searchDestination.toLowerCase()) === -1){
                     
                     return false;
                 }
