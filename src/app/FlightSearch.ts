@@ -8,7 +8,7 @@ import { Flight } from "./Flight";
 export class FlightSearchPipe implements PipeTransform {
     transform(items: Flight[],searchName:string,searchStarting:string,searchDestination:string) {
        
-        if(items&&items.length>0){
+       if(items&&items.length>0){
             return items.filter(item =>{
                 if (searchName && item.flightName.toLowerCase().indexOf(searchName.toLowerCase()) === -1){
                     return false;

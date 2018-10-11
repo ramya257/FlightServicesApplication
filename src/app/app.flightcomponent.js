@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var FlightService_1 = require("./FlightService");
+var Flight_1 = require("./Flight");
 var FlightSearch_1 = require("./FlightSearch");
 var FlightComponent = (function () {
     function FlightComponent(flightService, flightSearchPipe) {
@@ -19,8 +20,9 @@ var FlightComponent = (function () {
         this.update = false;
         this.isFlightsLoaded = false;
         this.flight = {};
+        //sort
         this.isDesc = false;
-        this.column = 'flightName';
+        this.column = '';
     }
     FlightComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -60,19 +62,10 @@ var FlightComponent = (function () {
         this.update = false;
     };
     FlightComponent.prototype.addFlightData = function () {
-        var flightData = this.flightObject();
-        this.flightsList.push(flightData);
+        this.flightsList.push(new Flight_1.Flight(this.name, this.price, this.starting, this.destination, this.arrival, this.departure));
         console.log(this.flightsList);
         this.add = false;
-    };
-    FlightComponent.prototype.flightObject = function () {
-        this.flight.flightName = this.name;
-        this.flight.flightPrice = this.price;
-        this.flight.flightStarting = this.starting;
-        this.flight.flightDestination = this.destination;
-        this.flight.flightArrival = this.arrival;
-        this.flight.flightDeparture = this.departure;
-        return this.flight;
+        this.clearAdd();
     };
     FlightComponent.prototype.clear = function () {
         this.fName = null;
@@ -81,6 +74,14 @@ var FlightComponent = (function () {
         this.fDestination = null;
         this.fArrival = null;
         this.fDeparture = null;
+    };
+    FlightComponent.prototype.clearAdd = function () {
+        this.name = null;
+        this.price = null;
+        this.starting = null;
+        this.destination = null;
+        this.arrival = null;
+        this.departure = null;
     };
     FlightComponent.prototype.sort = function (property) {
         this.isDesc = !this.isDesc; //change the direction    

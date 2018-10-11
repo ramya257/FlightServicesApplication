@@ -12,10 +12,10 @@ var FlightSortPipe = (function () {
     FlightSortPipe.prototype.transform = function (items, args) {
         return items.sort(function (a, b) {
             if (a[args.property] < b[args.property]) {
-                return -1 * args.direction;
+                return -1 * args.direction; //-1 ascending
             }
             else if (a[args.property] > b[args.property]) {
-                return 1 * args.direction;
+                return 1 * args.direction; //1 desc
             }
             else {
                 return 0;

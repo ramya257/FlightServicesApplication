@@ -20,19 +20,21 @@ export class FlightComponent implements OnInit{
     flightsList:Flight[];
     flight:any={};
 
-
-    fName:String;
+    //update
+    fName:string;
     fPrice:number;
     fStarting:string;
     fDestination:string;
     fArrival:string;
     fDeparture:string;
 
+//sort
     isDesc: boolean = false;
-    column: string = 'flightName';
+    column: string = '';
     direction: number;
 
 
+//add
     name:string;
     price:number;
     starting:string;
@@ -94,22 +96,13 @@ export class FlightComponent implements OnInit{
         
     }
     addFlightData():void{
-        let flightData=this.flightObject();
-        this.flightsList.push(flightData);
+ 
+        this.flightsList.push(new Flight(this.name,this.price,this.starting,this.destination,this.arrival,this.departure));
         console.log(this.flightsList);
         this.add=false;
+        this.clearAdd();
     }
     
-    flightObject():Flight{
-       this.flight.flightName=this.name;
-       this.flight.flightPrice=this.price;
-       this.flight.flightStarting=this.starting;
-       this.flight.flightDestination=this.destination;
-       this.flight.flightArrival=this.arrival;
-       this.flight.flightDeparture=this.departure;
-       return this.flight;
-        
-    }
     clear():void{
         this.fName=null;
         this.fPrice=null;
@@ -117,6 +110,15 @@ export class FlightComponent implements OnInit{
         this.fDestination=null;
         this.fArrival=null;
         this.fDeparture=null;
+    }
+    
+    clearAdd():void{
+        this.name=null;
+        this.price=null;
+        this.starting=null;
+        this.destination=null;
+        this.arrival=null;
+        this.departure=null;
     }
     
     sort(property:any){
