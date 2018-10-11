@@ -7,9 +7,6 @@
 <body>
 <div *ngIf="isFlightsLoaded">
 
-
-<div><input type="text" [(ngModel)]="searchText" placeholder="Search" /></div><br>
-
 <br><table border="1px solid black">
 <tr>
 <th (click)="sort('flightName')"><u>Name</u></th>
@@ -20,15 +17,28 @@
 <th (click)="sort('flightDeparture')"><u>Departure</u></th>
 <th colspan=2>Operations</th>
 </tr>
-<tr *ngFor="let flight of flightsList|search: searchText | sort: {property: column, direction: direction}, let i=index">
+
+<tr>
+<td><input type="text" name="name" [(ngModel)]="searchName" placeholder="Search By Name" autocomplete="off"/></td>
+<td><input type="text" hidden/></td>
+<td><input type="text" name="starting" [(ngModel)]="searchStarting" placeholder="Search By Starting Place" autocomplete="off"/></td>
+<td><input type="text" name="destination"  [(ngModel)]="searchDestination" placeholder="Search By Destination" autocomplete="off"/></td>
+<td><input type="text" hidden/></td>
+<td><input type="text" hidden/></td>
+<td colspan=2><input type="text" hidden/></td>
+
+
+</tr>
+
+<tr *ngFor="let flight of flightsList|search:searchName:searchStarting:searchDestination|sort: {property: column, direction: direction}, let i=index">
 <td>{{flight.flightName}}</td>
 <td>{{flight.flightPrice| currency:'USD':true:'1.0-0'}}</td>
 <td>{{flight.flightStarting}}</td>
 <td>{{flight.flightDestination}}</td>
 <td>{{flight.flightArrival}}</td>
 <td>{{flight.flightDeparture}}</td>
-<td><button (click)="updateFlight(i)">Update</button></td>
-<td><button (click)="deleteFlight(i)">Delete</button></td>
+<td><button (click)="updateFlight(flight)">Update</button></td>
+<td><button (click)="deleteFlight(flight)">Delete</button></td>
 </tr>
 </table>
 </div>
@@ -41,22 +51,22 @@
 <caption>Update Flight</caption>
 <tr>
 <td>
-Flight Name:<input type="text" [(ngModel)]='fName' name='fName'/></td></tr>
+Flight Name:<input type="text" [(ngModel)]='fName' name='fName' autocomplete="off"/></td></tr>
 <tr>
 <td>
-Flight Price:<input type="text" [(ngModel)]='fPrice' name='fPrice'/></td></tr>
+Flight Price:<input type="text" [(ngModel)]='fPrice' name='fPrice' autocomplete="off"/></td></tr>
 <tr>
 <td>
-Flight Starting At:<input type="text" [(ngModel)]='fStarting' name='fStarting'/></td></tr>
+Flight Starting At:<input type="text" [(ngModel)]='fStarting' name='fStarting' autocomplete="off"/></td></tr>
 <tr>
 <td>
-Flight Destination:<input type="text" [(ngModel)]='fDestination' name='fDestination'/></td></tr>
+Flight Destination:<input type="text" [(ngModel)]='fDestination' name='fDestination' autocomplete="off"/></td></tr>
 <tr>
 <td>
-Flight Arrival:<input type="text" [(ngModel)]='fArrival' name='fArrival'/></td></tr>
+Flight Arrival:<input type="text" [(ngModel)]='fArrival' name='fArrival' autocomplete="off"/></td></tr>
 <tr>
 <td>
-Flight Departure:<input type="text" [(ngModel)]='fDeparture' name='fDeparture'/></td></tr>
+Flight Departure:<input type="text" [(ngModel)]='fDeparture' name='fDeparture' autocomplete="off"/></td></tr>
 <tr><td><button (click)="onUpdate()">Update</button></td></tr>
 </table>
 </form>
@@ -74,22 +84,22 @@ Flight Departure:<input type="text" [(ngModel)]='fDeparture' name='fDeparture'/>
 <caption>Add Flight</caption>
 <tr>
 <td>
-Flight Name:<input type="text" [(ngModel)]='fName' name='fName'/></td></tr>
+Flight Name:<input type="text" [(ngModel)]='name' name='name'/></td></tr>
 <tr>
 <td>
-Flight Price:<input type="text" [(ngModel)]='fPrice' name='fPrice'/></td></tr>
+Flight Price:<input type="text" [(ngModel)]='price' name='price'/></td></tr>
 <tr>
 <td>
-Flight Starting At:<input type="text" [(ngModel)]='fStarting' name='fStarting'/></td></tr>
+Flight Starting At:<input type="text" [(ngModel)]='starting' name='starting'/></td></tr>
 <tr>
 <td>
-Flight Destination:<input type="text" [(ngModel)]='fDestination' name='fDestination'/></td></tr>
+Flight Destination:<input type="text" [(ngModel)]='destination' name='destination'/></td></tr>
 <tr>
 <td>
-Flight Arrival:<input type="text" [(ngModel)]='fArrival' name='fArrival'/></td></tr>
+Flight Arrival:<input type="text" [(ngModel)]='arrival' name='arrival'/></td></tr>
 <tr>
 <td>
-Flight Departure:<input type="text" [(ngModel)]='fDeparture' name='fDeparture'/></td></tr>
+Flight Departure:<input type="text" [(ngModel)]='departure' name='departure'/></td></tr>
 <tr><td><button (click)="addFlightData()">Add Flight</button></td></tr>
 </table>
 </form>

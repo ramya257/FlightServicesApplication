@@ -10,9 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var FlightService_1 = require("./FlightService");
+var FlightSearch_1 = require("./FlightSearch");
 var FlightComponent = (function () {
-    function FlightComponent(flightService) {
+    function FlightComponent(flightService, flightSearchPipe) {
         this.flightService = flightService;
+        this.flightSearchPipe = flightSearchPipe;
+        this.add = false;
         this.update = false;
         this.isFlightsLoaded = false;
         this.flight = {};
@@ -23,13 +26,17 @@ var FlightComponent = (function () {
         var _this = this;
         this.flightService.getAllFlights().subscribe(function (flights) { _this.flightsList = flights, _this.isFlightsLoaded = true; });
     };
-    FlightComponent.prototype.deleteFlight = function (index) {
+    FlightComponent.prototype.deleteFlight = function (flight) {
         console.log("delete");
+        var index = this.flightsList.indexOf(flight, 0);
         this.flightsList.splice(index, 1);
     };
-    FlightComponent.prototype.updateFlight = function (index) {
+    FlightComponent.prototype.updateFlight = function (flight) {
         this.update = true;
+        this.add = false;
+        var index = this.flightsList.indexOf(flight, 0);
         this.count = index;
+        console.log(index);
         this.fName = this.flightsList[index].flightName;
         this.fPrice = this.flightsList[index].flightPrice;
         this.fStarting = this.flightsList[index].flightStarting;
@@ -47,6 +54,43 @@ var FlightComponent = (function () {
         this.flightsList[this.count].flightArrival = this.fArrival;
         this.flightsList[this.count].flightDeparture = this.fDeparture;
     };
+    FlightComponent.prototype.addFlight = function () {
+        this.clear();
+        this.add = true;
+        this.update = false;
+    };
+    FlightComponent.prototype.addFlightData = function () {
+        var flightData = this.flightObject();
+        this.flightsList.push(flightData);
+        console.log(this.flightsList);
+        this.add = false;
+    };
+    FlightComponent.prototype.flightObject = function () {
+        this.flight.flightName = this.name;
+        this.flight.flightPrice = this.price;
+        this.flight.flightStarting = this.starting;
+        this.flight.flightDestination = this.destination;
+        this.flight.flightArrival = this.arrival;
+        this.flight.flightDeparture = this.departure;
+        return this.flight;
+    };
+    FlightComponent.prototype.clear = function () {
+        this.fName = null;
+        this.fPrice = null;
+        this.fStarting = null;
+        this.fDestination = null;
+        this.fArrival = null;
+        this.fDeparture = null;
+    };
+    FlightComponent.prototype.sort = function (property) {
+        this.isDesc = !this.isDesc; //change the direction    
+        this.column = property;
+        this.direction = this.isDesc ? 1 : -1;
+    };
+    FlightComponent.prototype.search = function (searchText) {
+        console.log(searchText);
+    };
+    //sorting
     FlightComponent.prototype.sortName = function () {
         this.flightsList.sort(function (flight1, flight2) {
             if (flight1.flightName < flight2.flightName)
@@ -107,47 +151,14 @@ var FlightComponent = (function () {
                 return 0;
         });
     };
-    FlightComponent.prototype.addFlight = function () {
-        this.clear();
-        this.add = true;
-    };
-    FlightComponent.prototype.addFlightData = function () {
-        var flightData = this.flightObject();
-        this.flightsList.push(flightData);
-        console.log(this.flightsList);
-        this.add = false;
-    };
-    FlightComponent.prototype.flightObject = function () {
-        this.flight.flightName = this.fName;
-        this.flight.flightPrice = this.fPrice;
-        this.flight.flightStarting = this.fStarting;
-        this.flight.flightDestination = this.fDestination;
-        this.flight.flightArrival = this.fArrival;
-        this.flight.flightDeparture = this.fDeparture;
-        return this.flight;
-    };
-    FlightComponent.prototype.clear = function () {
-        this.fName = null;
-        this.fPrice = null;
-        this.fStarting = null;
-        this.fDestination = null;
-        this.fArrival = null;
-        this.fDeparture = null;
-    };
-    FlightComponent.prototype.sort = function (property) {
-        this.isDesc = !this.isDesc; //change the direction    
-        this.column = property;
-        this.direction = this.isDesc ? 1 : -1;
-    };
-    ;
     return FlightComponent;
 }());
 FlightComponent = __decorate([
     core_1.Component({
         selector: 'flight-app',
         templateUrl: './app.flightcomponent.html',
-        providers: [FlightService_1.FlightService]
+        providers: [FlightService_1.FlightService, FlightSearch_1.FlightSearchPipe]
     }),
-    __metadata("design:paramtypes", [FlightService_1.FlightService])
+    __metadata("design:paramtypes", [FlightService_1.FlightService, FlightSearch_1.FlightSearchPipe])
 ], FlightComponent);
 exports.FlightComponent = FlightComponent;

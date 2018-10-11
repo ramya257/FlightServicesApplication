@@ -1,17 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { FlightService } from "./FlightService";
 import { Flight } from "./Flight";
+import { FlightSearchPipe } from "./FlightSearch";
 
 
 @Component({
     selector:'flight-app',
     templateUrl:'./app.flightcomponent.html',
-    providers:[FlightService]
+    providers:[FlightService,FlightSearchPipe]
     
     
 })
 export class FlightComponent implements OnInit{
-    add: boolean;
+    add: boolean=false;
     count: number;
     update: boolean=false;
     
@@ -32,23 +33,38 @@ export class FlightComponent implements OnInit{
     direction: number;
 
 
+    name:string;
+    price:number;
+    starting:string;
+    destination:string;
+    arrival:string;
+    departure:string;
+
+    searchText:string;
+   
+
+
 
     
-    constructor(private flightService:FlightService){
-        
+    constructor(private flightService:FlightService,private flightSearchPipe:FlightSearchPipe){
+       
     }
     ngOnInit(): void {
        this.flightService.getAllFlights().subscribe(flights=>{this.flightsList=flights,this.isFlightsLoaded=true});
     }
     
-    deleteFlight(index:number){
+    deleteFlight(flight:any){
         console.log("delete");
+        let index=this.flightsList.indexOf(flight,0);
         this.flightsList.splice(index, 1);
     }
     
-    updateFlight(index:number):void{
+    updateFlight(flight:any):void{
         this.update=true;
+        this.add=false;
+        let index=this.flightsList.indexOf(flight,0);
         this.count=index;
+        console.log(index);
         this.fName=this.flightsList[index].flightName;
         this.fPrice=this.flightsList[index].flightPrice;
         this.fStarting=this.flightsList[index].flightStarting;
@@ -69,70 +85,11 @@ export class FlightComponent implements OnInit{
        
     }
     
-    sortName():void{
-        this.flightsList.sort(function(flight1:Flight,flight2:Flight){
-            if(flight1.flightName< flight2.flightName)
-                return -1;
-            else if(flight1.flightName > flight2.flightName)
-                   return 1;
-            else
-                return 0;
-        });
-    }
-    sortPrice():void{
-        this.flightsList.sort(function(flight1:Flight,flight2:Flight){
-            if(flight1.flightPrice< flight2.flightPrice)
-                return -1;
-            else if(flight1.flightPrice > flight2.flightPrice)
-                   return 1;
-            else
-                return 0;
-        });
-    }
-    
-    sortStarting():void{
-        this.flightsList.sort(function(flight1:Flight,flight2:Flight){
-            if(flight1.flightStarting< flight2.flightStarting)
-                return -1;
-            else if(flight1.flightStarting > flight2.flightStarting)
-                   return 1;
-            else
-                return 0;
-        });
-    }
-    sortDestination():void{
-        this.flightsList.sort(function(flight1:Flight,flight2:Flight){
-            if(flight1.flightDestination< flight2.flightDestination)
-                return -1;
-            else if(flight1.flightDestination > flight2.flightDestination)
-                   return 1;
-            else
-                return 0;
-        });
-    }
-    sortArrival():void{
-        this.flightsList.sort(function(flight1:Flight,flight2:Flight){
-            if(flight1.flightArrival< flight2.flightArrival)
-                return -1;
-            else if(flight1.flightArrival > flight2.flightArrival)
-                   return 1;
-            else
-                return 0;
-        });
-    }
-    sortDeparture():void{
-        this.flightsList.sort(function(flight1:Flight,flight2:Flight){
-            if(flight1.flightDeparture< flight2.flightDeparture)
-                return -1;
-            else if(flight1.flightDeparture > flight2.flightDeparture)
-                   return 1;
-            else
-                return 0;
-        });
-    }
+   
     addFlight():void{
         this.clear();
         this.add=true;
+        this.update=false;
         
         
     }
@@ -144,12 +101,12 @@ export class FlightComponent implements OnInit{
     }
     
     flightObject():Flight{
-       this.flight.flightName=this.fName;
-       this.flight.flightPrice=this.fPrice;
-       this.flight.flightStarting=this.fStarting;
-       this.flight.flightDestination=this.fDestination;
-       this.flight.flightArrival=this.fArrival;
-       this.flight.flightDeparture=this.fDeparture;
+       this.flight.flightName=this.name;
+       this.flight.flightPrice=this.price;
+       this.flight.flightStarting=this.starting;
+       this.flight.flightDestination=this.destination;
+       this.flight.flightArrival=this.arrival;
+       this.flight.flightDeparture=this.departure;
        return this.flight;
         
     }
@@ -166,6 +123,75 @@ export class FlightComponent implements OnInit{
         this.isDesc = !this.isDesc; //change the direction    
         this.column = property;
         this.direction = this.isDesc ? 1 : -1;
-      };
+      }
+    search(searchText:string){
+        console.log(searchText);
+    }
         
+      
+      
+      
+      //sorting
+      
+      sortName():void{
+          this.flightsList.sort(function(flight1:Flight,flight2:Flight){
+              if(flight1.flightName< flight2.flightName)
+                  return -1;
+              else if(flight1.flightName > flight2.flightName)
+                     return 1;
+              else
+                  return 0;
+          });
+      }
+      sortPrice():void{
+          this.flightsList.sort(function(flight1:Flight,flight2:Flight){
+              if(flight1.flightPrice< flight2.flightPrice)
+                  return -1;
+              else if(flight1.flightPrice > flight2.flightPrice)
+                     return 1;
+              else
+                  return 0;
+          });
+      }
+      
+      sortStarting():void{
+          this.flightsList.sort(function(flight1:Flight,flight2:Flight){
+              if(flight1.flightStarting< flight2.flightStarting)
+                  return -1;
+              else if(flight1.flightStarting > flight2.flightStarting)
+                     return 1;
+              else
+                  return 0;
+          });
+      }
+      sortDestination():void{
+          this.flightsList.sort(function(flight1:Flight,flight2:Flight){
+              if(flight1.flightDestination< flight2.flightDestination)
+                  return -1;
+              else if(flight1.flightDestination > flight2.flightDestination)
+                     return 1;
+              else
+                  return 0;
+          });
+      }
+      sortArrival():void{
+          this.flightsList.sort(function(flight1:Flight,flight2:Flight){
+              if(flight1.flightArrival< flight2.flightArrival)
+                  return -1;
+              else if(flight1.flightArrival > flight2.flightArrival)
+                     return 1;
+              else
+                  return 0;
+          });
+      }
+      sortDeparture():void{
+          this.flightsList.sort(function(flight1:Flight,flight2:Flight){
+              if(flight1.flightDeparture< flight2.flightDeparture)
+                  return -1;
+              else if(flight1.flightDeparture > flight2.flightDeparture)
+                     return 1;
+              else
+                  return 0;
+          });
+      }
 }

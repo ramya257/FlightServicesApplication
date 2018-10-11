@@ -6,17 +6,25 @@ import { Flight } from "./Flight";
     pure: false,
 })
 export class FlightSearchPipe implements PipeTransform {
-    transform(items: Flight[],flightName:string) {
+    transform(items: Flight[],searchName:string,searchStarting:string,searchDestination:string) {
+       
         if(items&&items.length>0){
             return items.filter(item =>{
-                if (flightName && item.flightName.toLowerCase().indexOf(flightName.toLowerCase()) === -1){
-                   
+                if (searchName && item.flightName.toLowerCase().indexOf(searchName.toLowerCase()) === -1){
                     return false;
                 }
-                
+                if (searchStarting && item.flightStarting.toLowerCase().indexOf(searchStarting.toLowerCase()) === -1){
+                    return false;
+                }
+                if (searchDestination && item.flightDestination.toString().toLowerCase().indexOf(searchDestination.toLowerCase()) === -1){
+                    return false;
+                }
+               
                 return true;
            })
 
+}else{
+    return items;
 }
     }
 }
