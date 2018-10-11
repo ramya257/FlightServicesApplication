@@ -10,19 +10,21 @@ var FlightSearchPipe = (function () {
     function FlightSearchPipe() {
     }
     FlightSearchPipe.prototype.transform = function (items, searchName, searchStarting, searchDestination) {
-        if (items && items.length > 0) {
-            return items.filter(function (item) {
-                if (searchName && item.flightName.toLowerCase().indexOf(searchName.toLowerCase()) === -1) {
-                    return false;
-                }
-                if (searchStarting && item.flightStarting.toLowerCase().indexOf(searchStarting.toLowerCase()) === -1) {
-                    return false;
-                }
-                if (searchDestination && item.flightDestination.toString().toLowerCase().indexOf(searchDestination.toLowerCase()) === -1) {
-                    return false;
-                }
-                return true;
-            });
+        if (searchName != null || searchStarting != null || searchDestination != null) {
+            if (items && items.length > 0) {
+                return items.filter(function (item) {
+                    if (searchName && item.flightName.toLowerCase().indexOf(searchName.toLowerCase()) === -1) {
+                        return false;
+                    }
+                    if (searchStarting && item.flightStarting.toLowerCase().indexOf(searchStarting.toLowerCase()) === -1) {
+                        return false;
+                    }
+                    if (searchDestination && item.flightDestination.toString().toLowerCase().indexOf(searchDestination.toLowerCase()) === -1) {
+                        return false;
+                    }
+                    return true;
+                });
+            }
         }
         else {
             return items;
