@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var FlightService_1 = require("./FlightService");
 var Flight_1 = require("./Flight");
 var FlightSearch_1 = require("./FlightSearch");
-var FlightComponent = (function () {
+var FlightComponent = /** @class */ (function () {
     function FlightComponent(flightService, flightSearchPipe) {
         this.flightService = flightService;
         this.flightSearchPipe = flightSearchPipe;
@@ -159,14 +160,14 @@ var FlightComponent = (function () {
                 return 0;
         });
     };
+    FlightComponent = __decorate([
+        core_1.Component({
+            selector: 'flight-app',
+            templateUrl: './app.flightcomponent.html',
+            providers: [FlightService_1.FlightService, FlightSearch_1.FlightSearchPipe]
+        }),
+        __metadata("design:paramtypes", [FlightService_1.FlightService, FlightSearch_1.FlightSearchPipe])
+    ], FlightComponent);
     return FlightComponent;
 }());
-FlightComponent = __decorate([
-    core_1.Component({
-        selector: 'flight-app',
-        templateUrl: './app.flightcomponent.html',
-        providers: [FlightService_1.FlightService, FlightSearch_1.FlightSearchPipe]
-    }),
-    __metadata("design:paramtypes", [FlightService_1.FlightService, FlightSearch_1.FlightSearchPipe])
-], FlightComponent);
 exports.FlightComponent = FlightComponent;

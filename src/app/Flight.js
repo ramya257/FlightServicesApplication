@@ -1,5 +1,6 @@
 "use strict";
-var Flight = (function () {
+Object.defineProperty(exports, "__esModule", { value: true });
+var Flight = /** @class */ (function () {
     function Flight(name, price, starting, destination, arrival, departure) {
         this.flightName = name;
         this.flightPrice = price;
